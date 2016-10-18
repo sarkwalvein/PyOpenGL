@@ -1,4 +1,5 @@
 # From http://code.activestate.com/recipes/325391-open-a-glut-window-and-draw-a-sphere-using-pythono/
+# And from http://stackoverflow.com/questions/28806871/how-to-render-sphere-using-open-gl-c-and-not-glut-glu
 
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
