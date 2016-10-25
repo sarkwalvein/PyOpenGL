@@ -1,6 +1,7 @@
 # From http://code.activestate.com/recipes/325391-open-a-glut-window-and-draw-a-sphere-using-pythono/
 
-from OpenGL.GLUT import *
+#from OpenGL.GLUT import *
+from pygameSkell import *
 from OpenGL.GLU import *
 from OpenGL.GL import *
 import sys
