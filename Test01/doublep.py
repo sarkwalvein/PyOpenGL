@@ -81,11 +81,11 @@ def reshape(w, h):
     glLoadIdentity()
 
 def mouse(button, state, x, y):
-    if button[0]:
+    if button == 1:
         if state == MOUSEBUTTONDOWN:
             #glutIdleFunc(spinDisplay)
             pass
-    if button[1]:
+    if button == 3:
         if state == MOUSEBUTTONDOWN:
             #glutIdleFunc()
             pass

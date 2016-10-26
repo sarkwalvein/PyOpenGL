@@ -1,7 +1,8 @@
-from pygameSkell import *
 from OpenGL.GLU import *
 from OpenGL.GL import *
 import sys
+sys.path.append('..')
+from pygameSkell import *
 
 def init():
     glClearColor (0.0, 0.0, 0.0, 0.0)

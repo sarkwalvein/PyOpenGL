@@ -10,10 +10,16 @@ def glutInit(a):
     pygame.init()
     
 def glutInitDisplayMode(a):
+    global pygameMode
+    if a&GLUT_DOUBLE:
+        pygameMode |= DOUBLEBUF
+    else:
+        pygameMode &= ~DOUBLEBUF
     pass
     
 def glutInitWindowSize(w, h):
-    pygame.display.set_mode( (w, h) , HWSURFACE|OPENGL|DOUBLEBUF)
+    global pygameMode
+    pygame.display.set_mode( (w, h) , pygameMode)
 
 def glutInitWindowPosition(x, y):
     pass
@@ -28,9 +34,11 @@ pygameFunDisplay = pygameDummyFun
 pygameFunIdle = pygameDummyFun
 pygameFunMouse = pygameDummyFun
 pygameFunReshape = pygameDummyFun
-GLUT_DOUBLE = 0
-GLUT_RGB = 0
-GLUT_DEPTH = 0
+pygameMode = OPENGL|HWSURFACE
+GLUT_SINGLE = 0
+GLUT_DOUBLE = 1
+GLUT_RGB = 2
+GLUT_DEPTH = 4
 
 def glutReshapeFunc(fun = pygameDummyFun):
     global pygameFunReshape
