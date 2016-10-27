@@ -28,6 +28,7 @@ def drawOneLine(x1, y1, x2, y2):
 def init():
     glClearColor (0.0, 0.0, 0.0, 0.0)
     glShadeModel (GL_FLAT)
+    glFrontFace(GL_CCW)
 
 def display():
     global lIdx
@@ -82,22 +83,42 @@ def display():
     glColor(1,1,0)
     glVertex(50, 250)
     glColor(1,1,1)
-    glVertex(150, 250)
+    glVertex(125, 250)
     glColor(0,1,1)
     glVertex(50, 150)
     glColor(0,0,1)
-    glVertex(150, 150)
+    glVertex(125, 150)
     glColor(1,0,1)
-    glVertex(150, 250)
+    glVertex(125, 250)
     glColor(.5,.5,.5)
-    glVertex(250, 250)
+    glVertex(200, 250)
     glColor(.5,1,.5)
-    glVertex(150, 150)
+    glVertex(125, 150)
     glColor(.5,.5,1)
-    glVertex(250, 150)
+    glVertex(200, 150)
     glEnd()
     
+    glBegin(GL_TRIANGLES)
+    # Clock wise: Blue
+    glColor(0,0,1)
+    glVertex(200,150)
+    glVertex(200,250)
+    glVertex(275,250)
+    glVertex(275,150)
+    glVertex(275,250)
+    glVertex(350,250)
+    # AntiClock wise: Red
+    glColor(1,0,0)
+    glVertex(200,150)
+    glVertex(275,150)
+    glVertex(275,250)
+    glVertex(275,150)
+    glVertex(350,150)
+    glVertex(350,250)
+    glEnd()
     glFlush ()
+    
+    
     #glutSwapBuffers()
 
 def reshape(w, h):
