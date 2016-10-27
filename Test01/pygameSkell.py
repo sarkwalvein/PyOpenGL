@@ -70,7 +70,7 @@ def glutMainLoop():
             if event.type == KEYUP and event.key == K_ESCAPE:
                 return
             if event.type in (MOUSEBUTTONDOWN, MOUSEBUTTONUP):
-                mouse(event.button, event.type, event.pos[0], event.pos[1])
+                pygameFunMouse(event.button, event.type, event.pos[0], event.pos[1])
             if event.type == VIDEORESIZE:
                 pygameFunReshape(event.size[0], event.size[1])
 

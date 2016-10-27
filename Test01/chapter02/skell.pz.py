@@ -18,11 +18,9 @@ def display():
 
 def reshape(w, h):
     glViewport (0, 0, w, h)
-    glMatrixMode(GL_PROJECTION)
-    glLoadIdentity()
-    glOrtho(-50.0, 50.0, -50.0, 50.0, -1.0, 1.0)
-    glMatrixMode(GL_MODELVIEW)
-    glLoadIdentity()
+    glMatrixMode (GL_PROJECTION)
+    glLoadIdentity ()
+    gluOrtho2D (0.0, w, 0.0, h)
 
 def main():
     glutInit(sys.argv)
