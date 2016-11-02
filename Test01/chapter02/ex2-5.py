@@ -61,7 +61,7 @@ def display():
     
     glDisable (GL_LINE_STIPPLE)
     glFlush ()
-    #glutSwapBuffers()
+    glutSwapBuffers()
 
 def reshape(w, h):
     glViewport (0, 0, w, h)

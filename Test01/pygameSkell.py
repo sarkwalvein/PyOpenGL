@@ -43,6 +43,8 @@ GLUT_DEPTH = 4
 def glutReshapeFunc(fun = pygameDummyFun):
     global pygameFunReshape
     pygameFunReshape = fun
+    s = pygame.display.get_surface() 
+    pygameFunReshape(s.get_width(), s.get_height())
     
 def glutDisplayFunc(fun = pygameDummyFun):
     global pygameFunDisplay

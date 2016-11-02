@@ -120,6 +120,7 @@ def main():
     #glutCreateWindow (b'Double')
     pygame.init()
     screen = pygame.display.set_mode( (400,400) , HWSURFACE|OPENGL|DOUBLEBUF)
+    reshape(400,400)
     
     init ()
 
