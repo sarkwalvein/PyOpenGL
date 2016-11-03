@@ -79,6 +79,52 @@ def glutMainLoop():
         pygameFunIdle()
         pygameFunDisplay()
 
+def glutWireCube(sz):
+    sz/=2
+    # Side A
+    glBegin(GL_LINE_LOOP)
+    glVertex(-sz,-sz,sz)
+    glVertex(sz,-sz,sz)
+    glVertex(sz,sz,sz)
+    glVertex(-sz,sz,sz)
+    glEnd()
+    #Side B
+    glBegin(GL_LINE_LOOP)
+    glVertex(sz,-sz,sz)
+    glVertex(sz,-sz,-sz)
+    glVertex(sz,sz,-sz)
+    glVertex(sz,sz,sz)
+    glEnd()
+    #Side C
+    glBegin(GL_LINE_LOOP)
+    glVertex(-sz,-sz,sz)
+    glVertex(-sz,-sz,-sz)
+    glVertex(-sz,sz,-sz)
+    glVertex(-sz,sz,sz)
+    glEnd()
+    #Side F
+    glBegin(GL_LINE_LOOP)
+    glVertex(-sz,-sz,-sz)
+    glVertex(sz,-sz,-sz)
+    glVertex(sz,sz,-sz)
+    glVertex(-sz,sz,-sz)
+    glEnd()
+    #Side D
+    glBegin(GL_LINE_LOOP)
+    glVertex(-sz,sz,sz)
+    glVertex(sz,sz,sz)
+    glVertex(sz,sz,-sz)
+    glVertex(-sz,sz,-sz)
+    glEnd()
+    #Side E
+    glBegin(GL_LINE_LOOP)
+    glVertex(-sz,-sz,sz)
+    glVertex(sz,-sz,sz)
+    glVertex(sz,-sz,-sz)
+    glVertex(-sz,-sz,-sz)
+    glEnd()
+
+    
 def glutSolidSphere(radius, numSides, numStacks):
     numVerts = (numStacks-1)*numSides;
     points = [0 for x in range(numVerts)]
