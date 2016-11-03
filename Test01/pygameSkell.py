@@ -34,6 +34,8 @@ pygameFunDisplay = pygameDummyFun
 pygameFunIdle = pygameDummyFun
 pygameFunMouse = pygameDummyFun
 pygameFunReshape = pygameDummyFun
+pygameFunKeyboard = pygameDummyFun
+
 pygameMode = OPENGL|HWSURFACE
 GLUT_SINGLE = 0
 GLUT_DOUBLE = 1
@@ -49,6 +51,11 @@ def glutReshapeFunc(fun = pygameDummyFun):
 def glutDisplayFunc(fun = pygameDummyFun):
     global pygameFunDisplay
     pygameFunDisplay = fun
+
+def glutKeyboardFunc(fun = pygameDummyFun):
+    global pygameFunKeyboard
+    pygameFunKeyboard = fun
+    pygame.key.set_repeat(10,20)
     
 def glutIdleFunc(fun = pygameDummyFun):
     global pygameFunIdle
@@ -71,6 +78,10 @@ def glutMainLoop():
                 return
             if event.type == KEYUP and event.key == K_ESCAPE:
                 return
+            if event.type == KEYDOWN:
+                mousePos = pygame.mouse.get_pos()
+                pygameFunKeyboard(chr(event.key), mousePos[0], mousePos[1])
+                
             if event.type in (MOUSEBUTTONDOWN, MOUSEBUTTONUP):
                 pygameFunMouse(event.button, event.type, event.pos[0], event.pos[1])
             if event.type == VIDEORESIZE:
