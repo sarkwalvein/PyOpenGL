@@ -6,10 +6,11 @@ import sys
 sys.path.append('..')
 from pygameSkell import *
 
-px = 0
-py = 0
-pz = 0
-anx = 0
+px = 0; py = 5; pz = 0
+ux = 0; uy = 0; uz = 1
+radius = 5
+theta = 0
+phi = 0
 i_init = 0
                            
 import math
@@ -33,6 +34,7 @@ class MyBall:
         self._vertexMap = {}
         self._vertexIndices = []
         self._generateBall()
+        self._lastIii = -1
         
     def _generateBall(self):
         for i in range(20):
@@ -104,7 +106,10 @@ class MyBall:
         glVertexPointer (3, GL_FLOAT, 0, self._vertexArray )
         
     def draw(self, iii = 0):
-        self._prepareColors(iii)
+        if self._lastIii != iii:
+            self._prepareColors(iii)
+            self._lastIii = iii
+            
         glDrawElements(GL_TRIANGLES, self._vertexIndices.size, GL_UNSIGNED_INT, self._vertexIndices)
         
     def _prepareColors(self, iii):
@@ -120,16 +125,19 @@ ball = MyBall(3)
 def init():
     glClearColor (0.0, 0.0, 0.0, 0.0)
     glShadeModel (GL_FLAT)
+    ball.setPointers()
 
 def display():
     glClear(GL_COLOR_BUFFER_BIT)
-    glColor (1.0, 1.0, 1.0)
+    glColor (1.0, 1.0, 1.0)    
     glLoadIdentity ()             #/* clear the matrix */
             #/* viewing transformation  */
     #gluLookAt( cameraPosition (3f), whereToAimTheCamera (3f), whichWayIsUp (3f) )
-    gluLookAt (px, py, pz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0)
+    gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
     glScale (1.0, 2.0, 1.0)      #/* modeling transformation */ 
-    glutWireCube (1.0)
+
+    ball.draw()
+    #glutWireCube (1.0)
     glFlush ()
     glutSwapBuffers()
 
@@ -140,28 +148,70 @@ def reshape(w, h):
     glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0)
     glMatrixMode (GL_MODELVIEW)
 
+def angnor(ang):
+    while ang > math.pi:
+        ang-=2*math.pi
+    while ang < -math.pi:
+        ang+=2*math.pi
+    return ang
+    
+def calcCamera():
+    global px, py, pz
+    global ux, uy, uz
+    vxy = radius * math.sin(theta)
+    px = vxy * math.cos(phi)
+    py = vxy * math.sin(phi)
+    pz = radius * math.cos(theta)
+    
+    vxy = radius * math.sin(theta+.1)
+    ux = vxy * math.cos(phi)
+    uy = vxy * math.sin(phi)
+    uz = radius * math.cos(theta+.1)
+    
 def keyFun(chr, x, y):
-    global px
-    global py
-    global pz
+    global radius, phi, theta
+    
+    #if -math.pi/2 < theta < math.pi/2:
+    phinc = .1
+    #else:
+    #    phinc = -.1
     if chr == 'w':
-        py+=.1
+        theta=angnor(theta-.1)
     if chr == 'a':
-        px-=.1
+        phi=angnor(phi-phinc)
     if chr == 's':
-        py-=.1
+        theta=angnor(theta+.1)
     if chr == 'd':
-        px+=.1
+        phi=angnor(phi+phinc)
+    if chr == 'q':
+        radius-=.1
+    if chr == 'e':
+        radius+=.1
+        
+    if radius<0:
+        radius = 0
+        
+    calcCamera()
+    
+
+def idle():
+    global i_init
+    time.sleep(1/60)
+    i_init += 1
+    
         
 def main():
     glutInit(sys.argv)
-    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB)
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
+    #glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB)
     glutInitWindowSize(500,500)
     glutCreateWindow(b'')
     init ()
     glutDisplayFunc(display)
     glutReshapeFunc(reshape)
     glutKeyboardFunc(keyFun)
+    glutIdleFunc(idle)
+    calcCamera()
     glutMainLoop()
 
 if __name__ == '__main__': main()
