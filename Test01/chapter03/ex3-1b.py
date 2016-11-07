@@ -125,23 +125,69 @@ ball = MyBall(3)
 def init():
     glClearColor (0.0, 0.0, 0.0, 0.0)
     glShadeModel (GL_FLAT)
-    #glShadeModel (GL_SMOOTH)
-    #glFrontFace(GL_CW)
     glCullFace(GL_BACK)
-    #glCullFace(GL_FRONT)
     glEnable(GL_CULL_FACE)
+    glEnable(GL_DEPTH_TEST)
+    glDepthFunc(GL_LEQUAL)  #less or equal
+    glClearDepth(1.0)
     ball.setPointers()
 
 def display():
-    glClear(GL_COLOR_BUFFER_BIT)
+    bodyRadius = 8/4
+    wingRadius = 6/4
+    wingPosition = -.2
+    enginePosRatio = .5
+    engineRadius = 1/4
+    engineLength = 2/4
+    tailRadius = 3/4
+    widthBase = 1/8
+    
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glColor (1.0, 1.0, 1.0)    
     glLoadIdentity ()             #/* clear the matrix */
             #/* viewing transformation  */
     #gluLookAt( cameraPosition (3f), whereToAimTheCamera (3f), whichWayIsUp (3f) )
     gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
-    glScale (1.0, 2.0, 1.0)      #/* modeling transformation */ 
-
+    
+    # Main
+    glScale (bodyRadius, 2.0*widthBase, 2.0*widthBase)      #/* modeling transformation */ 
     ball.draw()
+    # Wing
+    glLoadIdentity ()
+    gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
+    glTranslate(wingPosition*bodyRadius,0,0)
+    glScale (widthBase, wingRadius, 0.5*widthBase)      #/* modeling transformation */ 
+    ball.draw()
+    # -- Engines
+    glLoadIdentity ()
+    gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
+    glTranslate(wingPosition*bodyRadius, enginePosRatio*wingRadius ,0)
+    glScale (engineLength, engineRadius, engineRadius)      
+    ball.draw()
+    glLoadIdentity ()
+    gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
+    glTranslate(wingPosition*bodyRadius, -enginePosRatio*wingRadius ,0)
+    glScale (engineLength, engineRadius, engineRadius)      
+    ball.draw()
+    
+    # Tail
+    glLoadIdentity ()
+    gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
+    glTranslate(bodyRadius,0,0)
+    glScale (0.5*widthBase, tailRadius, widthBase)
+    ball.draw()
+    # -- Stabilizer
+    glLoadIdentity ()
+    gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
+    glTranslate(bodyRadius,tailRadius,0)
+    glScale (widthBase, widthBase/2, widthBase/2)
+    ball.draw()
+    glLoadIdentity ()
+    gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
+    glTranslate(bodyRadius,-tailRadius,0)
+    glScale (widthBase, widthBase/2, widthBase/2)
+    ball.draw()
+    
     #glutWireCube (1.0)
     glFlush ()
     glutSwapBuffers()
