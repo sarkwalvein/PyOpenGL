@@ -100,7 +100,7 @@ class MyBall:
         self._vertexIndices.append(idx)
         
     def setPointers(self):
-        glEnableClientState (GL_COLOR_ARRAY)
+        # glEnableClientState (GL_COLOR_ARRAY)
         glEnableClientState (GL_VERTEX_ARRAY)
         glColorPointer (3, GL_FLOAT, 0, self._colorArray )
         glVertexPointer (3, GL_FLOAT, 0, self._vertexArray )
@@ -134,7 +134,7 @@ def init():
 
 def display():
     bodyRadius = 8/4
-    wingRadius = 6/4
+    wingRadius = 9/4
     wingPosition = -.2
     enginePosRatio = .5
     engineRadius = 1/4
@@ -143,49 +143,56 @@ def display():
     widthBase = 1/8
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glColor (1.0, 1.0, 1.0)    
     glLoadIdentity ()             #/* clear the matrix */
             #/* viewing transformation  */
     #gluLookAt( cameraPosition (3f), whereToAimTheCamera (3f), whichWayIsUp (3f) )
     gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
     
     # Main
+    glColor (0,.2,0)    
     glScale (bodyRadius, 2.0*widthBase, 2.0*widthBase)      #/* modeling transformation */ 
     ball.draw()
     # Wing
+    glColor (1,1, .6)    
     glLoadIdentity ()
     gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
     glTranslate(wingPosition*bodyRadius,0,0)
-    glScale (widthBase, wingRadius, 0.5*widthBase)      #/* modeling transformation */ 
+    glScale (widthBase*2, wingRadius, 0.5*widthBase)      #/* modeling transformation */ 
     ball.draw()
     # -- Engines
     glLoadIdentity ()
     gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
     glTranslate(wingPosition*bodyRadius, enginePosRatio*wingRadius ,0)
-    glRotate ((10*i_init)%360, 1, 0, 0)
+    glRotate ((20*i_init)%360, 1, 0, 0)
     glScale (engineLength, engineRadius, engineRadius)      
+    glColor (.5, .5, 0)    
     ball.draw()
     glTranslate(-2*engineLength,0,0)
     glScale (1/10, 1/10, 1.5)
-    glutSolidCube (2.0)
+    glColor (1,1, .6)    
+    ball.draw()
     
     glLoadIdentity ()
     gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
     glTranslate(wingPosition*bodyRadius, -enginePosRatio*wingRadius ,0)
-    glRotate ((10*i_init)%360, 1, 0, 0)
+    glRotate ((20*i_init)%360, 1, 0, 0)
     glScale (engineLength, engineRadius, engineRadius)      
+    glColor (.5, .5, 0)    
     ball.draw()
     glTranslate(-2*engineLength,0,0)
     glScale (1/10, 1/10, 1.5)
-    glutSolidCube (2.0)
+    glColor (1,1, .6)    
+    ball.draw()
     
     # Tail
     glLoadIdentity ()
     gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
     glTranslate(bodyRadius,0,0)
     glScale (0.5*widthBase, tailRadius, widthBase)
+    glColor (1,1, .6)    
     ball.draw()
     # -- Stabilizer
+    glColor (1,1, 0)    
     glLoadIdentity ()
     gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
     glTranslate(bodyRadius,tailRadius,0)
