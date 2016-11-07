@@ -90,6 +90,42 @@ def glutMainLoop():
         pygameFunIdle()
         pygameFunDisplay()
 
+def glutSolidCube(sz):
+    sz/=2
+    # Side A CCW
+    glBegin(GL_QUADS)
+    glVertex(-sz,-sz,sz)
+    glVertex(sz,-sz,sz)
+    glVertex(sz,sz,sz)
+    glVertex(-sz,sz,sz)
+    #Side B CCW
+    glVertex(sz,-sz,sz)
+    glVertex(sz,-sz,-sz)
+    glVertex(sz,sz,-sz)
+    glVertex(sz,sz,sz)
+    #Side C CCW
+    glVertex(-sz,-sz,sz)
+    glVertex(-sz,sz,sz)
+    glVertex(-sz,sz,-sz)
+    glVertex(-sz,-sz,-sz)
+    #Side F CCW
+    glVertex(-sz,-sz,-sz)
+    glVertex(-sz,sz,-sz)
+    glVertex(sz,sz,-sz)
+    glVertex(sz,-sz,-sz)
+    #Side D CCW
+    glVertex(-sz,sz,sz)
+    glVertex(sz,sz,sz)
+    glVertex(sz,sz,-sz)
+    glVertex(-sz,sz,-sz)
+    #Side E
+    glVertex(-sz,-sz,sz)
+    glVertex(-sz,-sz,-sz)
+    glVertex(sz,-sz,-sz)
+    glVertex(sz,-sz,sz)
+    glEnd()
+
+    
 def glutWireCube(sz):
     sz/=2
     # Side A

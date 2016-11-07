@@ -114,9 +114,9 @@ class MyBall:
         
     def _prepareColors(self, iii):
         for i in range(len(self._colorArray)):
-            self._colorArray[i][0]=(iii%4+1)/4
-            self._colorArray[i][1]=((iii//4)%4+1)/4
-            self._colorArray[i][2]=((iii//16)%4+1)/4
+            self._colorArray[i][0]=.5 #(iii%4+1)/4
+            self._colorArray[i][1]=.5 #((iii//4)%4+1)/4
+            self._colorArray[i][2]=.5 #((iii//16)%4+1)/4
             iii+=1
         
 ball = MyBall(3)
@@ -162,13 +162,22 @@ def display():
     glLoadIdentity ()
     gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
     glTranslate(wingPosition*bodyRadius, enginePosRatio*wingRadius ,0)
+    glRotate ((10*i_init)%360, 1, 0, 0)
     glScale (engineLength, engineRadius, engineRadius)      
     ball.draw()
+    glTranslate(-2*engineLength,0,0)
+    glScale (1/10, 1/10, 1.5)
+    glutSolidCube (2.0)
+    
     glLoadIdentity ()
     gluLookAt (px, py, pz, 0.0, 0.0, 0.0, ux, uy, uz)
     glTranslate(wingPosition*bodyRadius, -enginePosRatio*wingRadius ,0)
+    glRotate ((10*i_init)%360, 1, 0, 0)
     glScale (engineLength, engineRadius, engineRadius)      
     ball.draw()
+    glTranslate(-2*engineLength,0,0)
+    glScale (1/10, 1/10, 1.5)
+    glutSolidCube (2.0)
     
     # Tail
     glLoadIdentity ()
@@ -196,7 +205,7 @@ def reshape(w, h):
     glViewport (0, 0, w, h)
     glMatrixMode (GL_PROJECTION)
     glLoadIdentity ()
-    glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0)
+    glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 120.0)
     glMatrixMode (GL_MODELVIEW)
 
 def angnor(ang):
