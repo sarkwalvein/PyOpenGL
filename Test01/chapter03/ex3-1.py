@@ -1,5 +1,6 @@
 from OpenGL.GLU import *
 from OpenGL.GL import *
+import numpy
 import sys
 sys.path.append('..')
 from pygameSkell import *
