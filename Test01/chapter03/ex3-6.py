@@ -22,7 +22,23 @@ def display():
     glRotatef (year, 0.0, 1.0, 0.0)
     glTranslatef (2.0, 0.0, 0.0)
     glRotatef (day%360, 0.0, 1.0, 0.0)
+    glPushMatrix()
+    glRotatef (20, 0.0, 0.0, 1.0)
     glutWireSphere(0.2, 10, 8)#;    /* draw smaller planet */
+    glPopMatrix()
+    glPushMatrix()
+    glRotatef ((day/3)%360, 1.0, 0.0, 0.0)
+    glTranslatef (0.0, 0.4, 0.0)
+    glutWireSphere(0.04, 10, 8)#;    /* draw moon 1 */
+    glPopMatrix()
+    glPushMatrix()
+    glRotatef ( (day/7) %360, 0.0, 1.0, 1.0)
+    glTranslatef (0.6, 0.0, 0.0)
+    glutWireSphere(0.08, 10, 8)#;    /* draw moon2 */
+    glPopMatrix()
+    glRotatef ( (day/2) %360, 0.0, 1.0, 0.0)
+    glTranslatef (0.3, 0.0, 0.0)
+    glutWireSphere(0.02, 10, 8)#;    /* draw moon2 */
     # ---------------------------
     glPopMatrix()
     glutSwapBuffers()
@@ -48,7 +64,7 @@ def keyboard (key, x, y):
         year = (year - 5) % 360
     elif key == 'q':
         hour = (hour + 1) % 8760
-        day = (hour%24)/24*360
+        day = (hour)/24*360
         year = (hour/24/365)*360
 
 def main():
